@@ -4,6 +4,16 @@ const morgan = require("morgan");
 
 app.use(morgan("tiny"));
 
+app.use((req, res, next) => {
+  console.log("User defined middlethingy!!!");
+  next(); // we passed in next and we call it.
+});
+
+app.use((req, res, next) => {
+  console.log("This one runs next followed by!!!");
+  next(); // we passed in next and we call it.
+});
+
 app.get("/", (req, res) => {
   res.send("HOME PAGE!!");
 });
