@@ -17,16 +17,24 @@ app.use("/dogs", (req, res, next) => {
   next();
 });
 
-// Can't make it to routes unless you know the password
-app.use((req, res, next) => {
+const verifyPassword = (req, res, next) => {
   const { password } = req.query;
   if (password === "mypassword") {
     next();
   }
   res.send("PASSWORD NEEDED!!");
-  // console.log(req.query);
-  // next();
-});
+};
+
+// Can't make it to routes unless you know the password
+// app.use((req, res, next) => {
+//   const { password } = req.query;
+//   if (password === "mypassword") {
+//     next();
+//   }
+//   res.send("PASSWORD NEEDED!!");
+//   // console.log(req.query);
+//   // next();
+// });
 // app.use((req, res, next) => {
 //   console.log("User defined middlethingy!!!");
 //   next(); // we passed in next and we call it.
@@ -56,7 +64,8 @@ app.get("/cats", (req, res) => {
   res.send("MEOW!!");
 });
 
-app.get("/secret", (req, res) => {
+// app.get can take a function
+app.get("/secret", verifyPassword, (req, res) => {
   res.send("THE SECRET IS: visualizing a million dollars is not enough lol!!!");
 });
 
