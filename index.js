@@ -11,6 +11,22 @@ app.use((req, res, next) => {
   next();
 });
 
+// but i don't have a route for dogs, let see what happens (the function ran, the route 404)
+app.use("/dogs", (req, res, next) => {
+  console.log("I LOVE CATS!!");
+  next();
+});
+
+// Can't make it to routes unless you know the password
+app.use((req, res, next) => {
+  const { password } = req.query;
+  if (password === "mypassword") {
+    next();
+  }
+  res.send("PASSWORD NEEDED!!");
+  // console.log(req.query);
+  // next();
+});
 // app.use((req, res, next) => {
 //   console.log("User defined middlethingy!!!");
 //   next(); // we passed in next and we call it.
@@ -38,6 +54,16 @@ app.get("/", (req, res) => {
 app.get("/cats", (req, res) => {
   console.log(`REQUEST DATE: ${req.requestTime}`);
   res.send("MEOW!!");
+});
+
+app.get("/secret", (req, res) => {
+  res.send("THE SECRET IS: visualizing a million dollars is not enough lol!!!");
+});
+
+// Now when I call /dogs, it falls through to this catch all -- now raising the status to 404
+app.use((req, res) => {
+  res.status(404).send("NOT FOUND!");
+  // res.send("NOT FOUND!");
 });
 app.listen(3000, () => {
   console.log("We are running on localhost:3000");
