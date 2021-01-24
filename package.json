@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/aalexis8/intro_middleware/issues"
   },
-  "homepage": "https://github.com/aalexis8/intro_middleware#readme"
+  "homepage": "https://github.com/aalexis8/intro_middleware#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  }
 }
